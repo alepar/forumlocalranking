@@ -8,6 +8,7 @@ import ru.alepar.flr.dao.ScrapedDataDao;
 import ru.alepar.flr.dao.ScrapedSessionsDao;
 import ru.alepar.flr.http.HttpClient;
 import ru.alepar.flr.http.JsoupHttpClient;
+import ru.alepar.flr.http.RetryingHttpClient;
 import ru.alepar.flr.model.scraped.ScrapedUser;
 import ru.alepar.flr.scraper.TaskExecutor;
 import ru.alepar.flr.scraper.forumlocal.ForumLocalAsync;
@@ -38,11 +39,13 @@ public class ScrapeForumlocal {
             final ScrapedSessionsDao sessions = new LmdbScrapedSessionsDao(lmdb);
 
             final String session = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss ZZZZZ").format(new Date());
-            System.out.println("creating session " + session);
+            System.out.format("created session '%s'\n", session);
             final ScrapedDataDao data = sessions.create(session);
 
-            final HttpClient http = new JsoupHttpClient();
-            final ExecutorService ioPool = newFixedThreadPool(10);
+            final long startNanos = System.nanoTime();
+
+            final HttpClient http = new RetryingHttpClient(new JsoupHttpClient());
+            final ExecutorService ioPool = newFixedThreadPool(40);
             final ExecutorService cpuPool = newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
             try (TaskExecutor executor = new TaskExecutor(http, ioPool, cpuPool)) {
                 final AtomicInteger usersCount = new AtomicInteger();
@@ -63,10 +66,13 @@ public class ScrapeForumlocal {
                     data.save(user);
                     savedUsersCount++;
                     final int localUsersCount = usersCount.get();
-                    System.out.format("saved %3.1f%% (%d/%d)\n", 100.0/localUsersCount*savedUsersCount, savedUsersCount, localUsersCount);
+                    System.out.format("\rsaved %.1f%% (%d/%d)", 100.0/localUsersCount*savedUsersCount, savedUsersCount, localUsersCount);
                 }
-                System.out.println("Done");
+
                 data.markAsComplete();
+
+                final long endNanos = System.nanoTime();
+                System.out.format("\ndone in %.1fm\n", (endNanos-startNanos)/1_000_000_000/60.0);
             }
         }
     }

@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-public class LmdbCloseableStream<T> implements CloseableStream {
+public class LmdbCloseableStream<T> implements CloseableStream<T> {
 
     private final Stream<T> delegate;
     private final Txn<?> txn;
@@ -40,7 +40,7 @@ public class LmdbCloseableStream<T> implements CloseableStream {
     }
 
     @Override
-    public Stream stream() {
+    public Stream<T> stream() {
         return delegate;
     }
 }

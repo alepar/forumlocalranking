@@ -7,11 +7,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.alepar.flr.model.scraped.ScrapedUser;
+import ru.alepar.flr.model.scraped.ScrapedUserDetails;
 import ru.alepar.flr.model.scraped.ScrapedUserPostsStats;
 import ru.alepar.flr.model.scraped.ScrapedUserRatings;
 import ru.alepar.flr.scraper.TaskExecutor;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -68,8 +68,9 @@ public class PooledForumLocalAsync implements ForumLocalAsync {
 
             final List<ListenableFuture<String>> futures = Stream.of(
                     "https://forumlocal.ru/ratingdetails.php?full_users=1&showlite=&username=" + encode,
-                    "https://forumlocal.ru/userstats.php?arch=1&Username=" + encode
-            ).map(url ->
+                    "https://forumlocal.ru/userstats.php?arch=1&Username=" + encode,
+                    "https://forumlocal.ru/showprofile.php?User=" + encode
+                    ).map(url ->
                     executor.submit(http -> {
                         try {
                             return http.get(url, emptyMap(), emptyMap(), emptyMap());
@@ -85,16 +86,45 @@ public class PooledForumLocalAsync implements ForumLocalAsync {
 
                 final String ratingPage = list.get(0);
                 final String statsPage = list.get(1);
+                final String detailsPage = list.get(2);
 
                 user.setName(username);
                 user.setPostsStats(extractStats(statsPage));
                 user.setRatings(extractRatings(ratingPage));
+                user.setDetails(extractDetails(detailsPage));
 
                 return user;
             }, executor.cpuPool());
         } catch (Exception e) {
             throw new RuntimeException("failed to scrape user " + username, e);
         }
+    }
+
+    private ScrapedUserDetails extractDetails(String html) {
+        final ScrapedUserDetails details = new ScrapedUserDetails();
+
+        final Document doc = Jsoup.parse(html);
+
+        details.setTotalPosts(toIntOrZero(selectValueForRow(doc, "сообщений")));
+        details.setTotalRating(toIntOrZero(selectValueForRow(doc, "Рейтинг")));
+        details.setGender(selectValueForRow(doc, "gender"));
+
+        return details;
+    }
+
+    private static int toIntOrZero(String str) {
+        try {
+            return Integer.valueOf(str);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    private static String selectValueForRow(Document doc, String rowName) {
+        return single(
+            single(doc.select("table td.darktable:containsOwn(" + rowName + ")"))
+            .parent().select("> td:eq(1)")
+        ).text();
     }
 
     private ScrapedUserRatings extractRatings(String html) {

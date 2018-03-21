@@ -3,8 +3,10 @@ package ru.alepar.flr.model.scraped;
 public class ScrapedUser {
 
     private String name;
+
     private ScrapedUserPostsStats postsStats;
     private ScrapedUserRatings ratings;
+    private ScrapedUserDetails details;
 
     public String getName() {
         return name;
@@ -28,5 +30,13 @@ public class ScrapedUser {
 
     public void setRatings(ScrapedUserRatings ratings) {
         this.ratings = ratings;
+    }
+
+    public ScrapedUserDetails getDetails() {
+        return details;
+    }
+
+    public void setDetails(ScrapedUserDetails details) {
+        this.details = details;
     }
 }

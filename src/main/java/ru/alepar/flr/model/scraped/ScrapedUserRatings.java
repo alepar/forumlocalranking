@@ -26,4 +26,12 @@ public class ScrapedUserRatings {
     public static Long toLong(int sum, int votes) {
         return ((long) sum) << 32 | ((long)votes);
     }
+
+    public static int getTotal(long value) {
+        return (int) value;
+    }
+
+    public static int getSum(long value) {
+        return (int) (value >> 32);
+    }
 }
