@@ -1,9 +1,7 @@
 package ru.alepar.flr;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.parquet.avro.AvroParquetWriter;
 import org.apache.parquet.hadoop.ParquetFileWriter;
@@ -16,14 +14,10 @@ import ru.alepar.flr.dao.ScrapedDataDao;
 import ru.alepar.flr.dao.ScrapedSessionsDao;
 import ru.alepar.flr.model.scraped.ScrapedUser;
 import ru.alepar.flr.model.scraped.ScrapedUserDetails;
-import tech.tablesaw.api.CategoryColumn;
-import tech.tablesaw.api.IntColumn;
-import tech.tablesaw.api.Table;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.Map;
 
 import static org.lmdbjava.Env.create;
 import static ru.alepar.flr.model.scraped.ScrapedUserRatings.getSum;
@@ -32,10 +26,10 @@ import static ru.alepar.flr.model.scraped.ScrapedUserRatings.getTotal;
 public class DumpLatestToParquetMain {
 
     public static void main(String[] args) throws Exception {
-        final Schema usersSchema = loadSchema("users.avsc");
+        final Schema usersSchema = loadSchema("src/main/avro/users.avsc");
         final ParquetWriter<GenericData.Record> usersWriter = openParquetFile("users.parquet", usersSchema);
 
-        final Schema userRatingsSchema = loadSchema("user_ratings.avsc");
+        final Schema userRatingsSchema = loadSchema("src/main/avro/user_ratings.avsc");
         final ParquetWriter<GenericData.Record> userRatingsWriter = openParquetFile("user_ratings.parquet", userRatingsSchema);
 
         try(Env<ByteBuffer> lmdb = create()

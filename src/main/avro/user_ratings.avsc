@@ -1,22 +1,22 @@
 {
   "type": "record",
-  "name": "users",
-  "doc": "user details",
+  "name": "UserRatings",
+  "doc": "who rated who",
   "fields": [
     {
-      "name": "name",
+      "name": "rater",
       "type": "string"
     },
     {
-      "name": "gender",
+      "name": "ratee",
       "type": "string"
     },
     {
-      "name": "posts",
+      "name": "total",
       "type": "int"
     },
     {
-      "name": "rating",
+      "name": "sum",
       "type": "int"
     }
   ]
