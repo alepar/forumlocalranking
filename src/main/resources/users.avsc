@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "users",
+  "doc": "user details",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "gender",
+      "type": "string"
+    },
+    {
+      "name": "posts",
+      "type": "int"
+    },
+    {
+      "name": "rating",
+      "type": "int"
+    }
+  ]
+}

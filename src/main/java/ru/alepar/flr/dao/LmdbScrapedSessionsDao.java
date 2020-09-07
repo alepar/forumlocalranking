@@ -30,9 +30,8 @@ public class LmdbScrapedSessionsDao implements ScrapedSessionsDao {
         final SortedSet<String> list = new TreeSet<>();
 
         try (Txn<ByteBuffer> rtx = lmdb.txnRead()) {
-            try(CursorIterator<ByteBuffer> cursor = dbi.iterate(rtx, KeyRange.open(listStart, listEnd))) {
-                while(cursor.hasNext()) {
-                    final CursorIterator.KeyVal<ByteBuffer> keyval = cursor.next();
+            try(CursorIterable<ByteBuffer> cursor = dbi.iterate(rtx, KeyRange.open(listStart, listEnd))) {
+                for (CursorIterable.KeyVal<ByteBuffer> keyval : cursor) {
                     final ByteBuffer key = keyval.key();
                     key.position(1);
                     final byte[] buf = new byte[key.remaining()];
@@ -71,8 +70,8 @@ public class LmdbScrapedSessionsDao implements ScrapedSessionsDao {
     @Override
     public ScrapedDataDao openLatestComplete() {
         try (Txn<ByteBuffer> rtx = lmdb.txnRead()) {
-            try(CursorIterator<ByteBuffer> cursor = dbi.iterate(rtx, KeyRange.openBackward(listEnd, listStart))) {
-                for (CursorIterator.KeyVal<ByteBuffer> kv : cursor.iterable()) {
+            try(CursorIterable<ByteBuffer> cursor = dbi.iterate(rtx, KeyRange.openBackward(listEnd, listStart))) {
+                for (CursorIterable.KeyVal<ByteBuffer> kv : cursor) {
                     if (kv.val().remaining() > 0 && kv.val().get() == (byte)1) {
                         final ByteBuffer key = kv.key();
                         key.position(1);

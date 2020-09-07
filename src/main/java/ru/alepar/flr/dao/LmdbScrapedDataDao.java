@@ -72,9 +72,9 @@ public class LmdbScrapedDataDao implements ScrapedDataDao {
 
         final Txn<ByteBuffer> rtx = lmdb.txnRead();
         try {
-            final CursorIterator<ByteBuffer> cursor = dbi.iterate(rtx, KeyRange.open(dataStartKey, dataEndKey));
+            final CursorIterable<ByteBuffer> cursor = dbi.iterate(rtx, KeyRange.open(dataStartKey, dataEndKey));
             return new LmdbCloseableStream<>(
-                    StreamSupport.stream(cursor.iterable().spliterator(), false)
+                    StreamSupport.stream(cursor.spliterator(), false)
                     .map(kv -> {
                         try {
                             final InputStream is = new ByteBufferBackedInputStream(kv.val());

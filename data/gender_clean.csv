@@ -130,8 +130,8 @@ none,2,
 ? ;),1,
 ".,.",1,
 (.)(.),1,
-(ж),1,
-(М),1,
+(ж),1,F
+(М),1,M
 )|(,1,
 /user/upload/js/9081.js,1,
 /X\,1,
@@ -143,7 +143,7 @@ none,2,
 15 см,1,
 2 times a day,1,
 2М,1,
-A MAN,1,
+A MAN,1,M
 A[irplane],1,
 advance,1,
 ANONYMOUS,1,
@@ -152,7 +152,7 @@ Bender,1,
 BIGMAN,1,
 bot,1,
 Bot,1,
-Boy,1,
+Boy,1,M
 bu,1,
 buy-side,1,
 c,1,
@@ -168,25 +168,25 @@ Duck,1,
 elf,1,
 evil,1,
 fe,1,
-Fem,1,
-female (night elf),1,
-Female блин,1,
-feminine,1,
-Femme,1,
-fm,1,
-Frau,1,
+Fem,1,F
+female (night elf),1,F
+Female блин,1,F
+feminine,1,F
+Femme,1,F
+fm,1,F
+Frau,1,F
 Garson,1,
 gender,1,
-gentleman,1,
+gentleman,1,M
 Gfwfycrbq,1,
-Girl,1,
+Girl,1,F
 gm,1,
 Golf,1,
-Herr,1,
+Herr,1,M
 i,1,
-"I'm a good girl, am I?!",1,
-I'm a man,1,
-I'm a MAN ! Oh yeah !,1,
+"I'm a good girl, am I?!",1,F
+I'm a man,1,M
+I'm a MAN ! Oh yeah !,1,M
 ID.,1,
 indefinite,1,
 It,1,
@@ -195,23 +195,23 @@ kiborg,1,
 kindred,1,
 kona,1,
 kupo,1,
-l'homme,1,
-la femme,1,
-lady J,1,
-Le Male,1,
+l'homme,1,M
+la femme,1,F
+lady J,1,F
+Le Male,1,M
 M (mature),1,
 M.,1,
-madkroz,1,
+madkroz,1,MS
 magic,1,
-mal,1,
-Male (28),1,
-Male (kishi),1,
-Male 25,1,
-male(муж),1,
-male(МУЖЧИНА),1,
-male|active,1,
-MAN,1,
-man( extremally heterosexual),1,
+mal,1,M
+Male (28),1,M
+Male (kishi),1,M
+Male 25,1,M
+male(муж),1,M
+male(МУЖЧИНА),1,M
+male|active,1,M
+MAN,1,M
+man( extremally heterosexual),1,M
 maniac,1,
 Mann,1,
 mega,1,
@@ -220,18 +220,18 @@ Mescaline,1,
 mevrouw,1,
 MG,1,
 ml,1,
-mmm,1,
-MMM,1,
-Mr,1,
+mmm,1,M
+MMM,1,M
+Mr,1,M
 MRAMORNIY NA !,1,
 MRRR,1,
 mujer,1,
 multiplex,1,
-Musculine,1,
+Musculine,1,M
 Mutant,1,
 Myzhiiiik!!!,1,
-MЕЙЛ,1,
-Mуж,1,
+MЕЙЛ,1,M
+Mуж,1,M
 n,1,
 N,1,
 neutral,1,
@@ -252,16 +252,16 @@ PhD,1,
 "Pol kak pol, ne zaluus'",1,
 q,1,
 qwe,1,
-real male,1,
+real male,1,M
 retired,1,
 rnale,1,
 s,1,
 sex,1,
-she,1,
+she,1,F
 shemale,1,
 signora,1,
 Since birth - man. Didn't change.,1,
-sir,1,
+sir,1,M
 straight,1,
 Strong man,1,
 sverhu,1,
@@ -272,8 +272,8 @@ V,1,
 Virgin,1,
 W,1,
 weiblich,1,
-woman,1,
-women,1,
+woman,1,F
+women,1,F
 WWWWWWWWWWWWWWWW,1,
 x,1,
 X,1,

@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "user_ratings",
+  "doc": "who rated who",
+  "fields": [
+    {
+      "name": "rater",
+      "type": "string"
+    },
+    {
+      "name": "ratee",
+      "type": "string"
+    },
+    {
+      "name": "total",
+      "type": "int"
+    },
+    {
+      "name": "sum",
+      "type": "int"
+    }
+  ]
+}

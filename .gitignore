@@ -19,3 +19,8 @@ hs_err_pid*
 
 # lmdb
 /lmdb*
+
+/*.csv
+*.parquet
+*.parquet.crc
+.Rhistory
