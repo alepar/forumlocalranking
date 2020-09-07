@@ -26,10 +26,10 @@ import static ru.alepar.flr.model.scraped.ScrapedUserRatings.getTotal;
 public class DumpLatestToParquetMain {
 
     public static void main(String[] args) throws Exception {
-        final Schema usersSchema = loadSchema("src/main/avro/users.avsc");
+        final Schema usersSchema = loadSchema("users.avsc");
         final ParquetWriter<GenericData.Record> usersWriter = openParquetFile("users.parquet", usersSchema);
 
-        final Schema userRatingsSchema = loadSchema("src/main/avro/user_ratings.avsc");
+        final Schema userRatingsSchema = loadSchema("user_ratings.avsc");
         final ParquetWriter<GenericData.Record> userRatingsWriter = openParquetFile("user_ratings.parquet", userRatingsSchema);
 
         try(Env<ByteBuffer> lmdb = create()
