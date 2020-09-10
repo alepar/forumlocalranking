@@ -5,7 +5,7 @@ setwd("C:/code/forumlocalranking")
 
 genders <- read_csv("data/gender_clean.csv")
 
-users <- read_parquet("users.parquet") %>%
+users <- read_parquet("user_profiles.parquet") %>%
   mutate(posts=abs(posts)) %>%
   left_join(genders, by=c("gender")) %>%
   select(name, posts, rating, gender=gender_clean)
@@ -47,7 +47,9 @@ user_scores %>%
   arrange(desc(score)) %>%
   View
 
-
+# koturn
+# Pastushok / JordanTwoDelta
+# Maestro / ethery
 user_x %>%
   filter(ratee == "alepar") %>%
   View

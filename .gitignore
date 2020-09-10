@@ -20,6 +20,8 @@ hs_err_pid*
 # lmdb
 /lmdb*
 
+/target
+
 /*.csv
 *.parquet
 *.parquet.crc

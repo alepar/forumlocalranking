@@ -1,0 +1,39 @@
+{
+  "type": "record",
+  "name": "UserPost",
+  "doc": "who posted where",
+  "fields": [
+    {
+      "name": "userName",
+      "type": "string"
+    },
+    {
+      "name": "boardName",
+      "type": "string"
+    },
+    {
+      "name": "threadId",
+      "type": "int"
+    },
+    {
+      "name": "postId",
+      "type": "int"
+    },
+    {
+      "name": "rating",
+      "type": "int"
+    },
+    {
+      "name": "epochSeconds",
+      "type": "long"
+    },
+    {
+      "name": "replyToId",
+      "type": "int"
+    },
+    {
+      "name": "replyToName",
+      "type": "string"
+    }
+  ]
+}

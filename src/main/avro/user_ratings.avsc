@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "UserRatings",
+  "name": "UserRating",
   "doc": "who rated who",
   "fields": [
     {
