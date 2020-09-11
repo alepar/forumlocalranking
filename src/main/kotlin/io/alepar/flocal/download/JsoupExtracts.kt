@@ -1,6 +1,7 @@
 package io.alepar.flocal.download
 
-import UserBoardStats
+import UserBoardPosts
+import UserBoardRating
 import UserProfile
 import UserRating
 import org.jsoup.Jsoup
@@ -19,8 +20,8 @@ fun extractUserProfile(ctx: UserContext<String>): UserProfile {
     )
 }
 
-fun extractUserBoardStats(ctx: UserContext<String>): Iterable<UserBoardStats> {
-    val stats = ArrayList<UserBoardStats>()
+fun extractUserBoardStats(ctx: UserContext<String>): Iterable<UserBoardPosts> {
+    val stats = ArrayList<UserBoardPosts>()
 
     val doc = Jsoup.parse(ctx.data)
     val noPostsElements = doc.select("i:containsOwn(No posts)")
@@ -30,17 +31,17 @@ fun extractUserBoardStats(ctx: UserContext<String>): Iterable<UserBoardStats> {
         for (trElement in trElements) {
             val board = singleElement(trElement.select("> td:eq(0)")).text()
             val posts = Integer.valueOf(singleElement(trElement.select("> td:eq(1)")).ownText())
-            stats.add(UserBoardStats(ctx.name, board, posts, -1))
+            stats.add(UserBoardPosts(ctx.name, board, posts))
         }
     }
 
     return stats
 }
 
-fun extractUserRatings(ctx: UserContext<String>): Iterable<UserRating> {
+fun extractUserRatings(ctx: UserContext<Document>): Iterable<UserRating> {
     val ratings = ArrayList<UserRating>()
 
-    val doc = Jsoup.parse(ctx.data)
+    val doc = ctx.data
     val byUsersBody = singleElement(doc.select("table td.tdheader:matchesOwn(^User$)")).parent().parent()
     for (trElement in byUsersBody.select("tr.lighttable, tr.darktable")) {
         val tdElements = trElement.select("td")
@@ -52,6 +53,20 @@ fun extractUserRatings(ctx: UserContext<String>): Iterable<UserRating> {
         val sum = Integer.valueOf(tdElements[2].ownText())
 
         ratings.add(UserRating(rater, ctx.name, votes, sum))
+    }
+
+    return ratings
+}
+
+fun extractUserBoardRatings(ctx: UserContext<Document>): Iterable<UserBoardRating> {
+    val ratings = ArrayList<UserBoardRating>()
+
+    val doc = ctx.data
+    val byBoardBody = singleElement(doc.select("td.tdheader:matchesOwn(^Board$) + td.tdheader:matchesOwn(^Rating$)")).parent().parent()
+    for (trElement in byBoardBody.select("tr.lighttable, tr.darktable")) {
+        val board = singleElement(trElement.select("> td:eq(0)")).text()
+        val rating = Integer.valueOf(singleElement(trElement.select("> td:eq(1)")).ownText())
+        ratings.add(UserBoardRating(ctx.name, board, rating))
     }
 
     return ratings

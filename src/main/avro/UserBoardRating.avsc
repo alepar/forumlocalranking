@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "UserBoardRating",
+  "doc": "who rated how in board",
+  "fields": [
+    {
+      "name": "userName",
+      "type": "string"
+    },
+    {
+      "name": "boardName",
+      "type": "string"
+    },
+    {
+      "name": "rating",
+      "type": "int"
+    }
+  ]
+}

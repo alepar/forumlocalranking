@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "UserProfile",
+  "doc": "User profiles",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "gender",
+      "type": "string"
+    },
+    {
+      "name": "posts",
+      "type": "int"
+    },
+    {
+      "name": "rating",
+      "type": "int"
+    }
+  ]
+}

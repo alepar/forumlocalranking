@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "UserBoardPosts",
+  "doc": "who posted how many in board",
+  "fields": [
+    {
+      "name": "userName",
+      "type": "string"
+    },
+    {
+      "name": "boardName",
+      "type": "string"
+    },
+    {
+      "name": "posts",
+      "type": "int"
+    }
+  ]
+}

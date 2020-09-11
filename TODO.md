@@ -1,5 +1,4 @@
 ### features
-* board stats flowable
 * log window
 * join user_gender_expert.csv into parquet data
 * calculate user intersection (topics of each other they've potentially seen)

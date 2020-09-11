@@ -13,12 +13,15 @@ const val barWidth = 35
 class LanternaUI(private val progress: GlobalProgress) {
 
     private val gui: MultiWindowTextGUI
+    private val timeLabel: Label
+
     private val progressBarPanel: Panel
+    private val userListProgressBar: ProgressBar
+
     private val userRatingsProgressBar: ProgressBar
     private val userProfilesProgressBar: ProgressBar
-    private val userBoardStatsProgressBar: ProgressBar
-    private val userListProgressBar: ProgressBar
-    private val timeLabel: Label
+    private val userBoardPostsProgressBar: ProgressBar
+    private val userBoardRatingsProgressBar: ProgressBar
 
     private val startNanos = System.nanoTime()
 
@@ -40,7 +43,8 @@ class LanternaUI(private val progress: GlobalProgress) {
 
         userRatingsProgressBar = ProgressBar(0, 0).apply { preferredWidth = barWidth }
         userProfilesProgressBar = ProgressBar(0, 0).apply { preferredWidth = barWidth }
-        userBoardStatsProgressBar = ProgressBar(0, 0).apply { preferredWidth = barWidth }
+        userBoardPostsProgressBar = ProgressBar(0, 0).apply { preferredWidth = barWidth }
+        userBoardRatingsProgressBar = ProgressBar(0, 0).apply { preferredWidth = barWidth }
 
         gui.addWindow(BasicWindow("Progress").apply { component = progressBarPanel })
         gui.guiThread.processEventsAndUpdate()
@@ -73,14 +77,16 @@ class LanternaUI(private val progress: GlobalProgress) {
 
                 addComponent(userProfilesProgressBar)
                 addComponent(userRatingsProgressBar)
-                addComponent(userBoardStatsProgressBar)
+                addComponent(userBoardPostsProgressBar)
+                addComponent(userBoardRatingsProgressBar)
             }
         }
 
         if (userListDone) {
             progress.userProfilesProgress.update(userProfilesProgressBar)
             progress.userRatingsProgress.update(userRatingsProgressBar)
-            progress.userBoardStatsProgress.update(userBoardStatsProgressBar)
+            progress.userBoardPostsProgress.update(userBoardPostsProgressBar)
+            progress.userBoardRatingsProgress.update(userBoardRatingsProgressBar)
         } else {
             progress.userListProgress.update(userListProgressBar)
         }

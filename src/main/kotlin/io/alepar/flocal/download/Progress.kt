@@ -9,9 +9,11 @@ class GlobalProgress(private val finalizer: () -> Unit) {
     private val log = LoggerFactory.getLogger(GlobalProgress::class.java)
 
     val userListProgress = FlowProgress("User List")
+
     val userRatingsProgress = FlowProgress("User Ratings")
     val userProfilesProgress = FlowProgress("User Profiles")
-    val userBoardStatsProgress = FlowProgress("User Board Stats")
+    val userBoardPostsProgress = FlowProgress("User Board Posts")
+    val userBoardRatingsProgress = FlowProgress("User Board Ratings")
 
     fun finalize() {
         try {
@@ -22,7 +24,11 @@ class GlobalProgress(private val finalizer: () -> Unit) {
     }
 
     fun isDone(): Boolean {
-        return userListProgress.done && userRatingsProgress.done
+        return userListProgress.done
+                && userRatingsProgress.done
+                && userProfilesProgress.done
+                && userBoardPostsProgress.done
+                && userBoardRatingsProgress.done
     }
 
 }
