@@ -11,7 +11,7 @@
     <properties>
         <kotlin.version>1.4.0</kotlin.version>
         <avro.version>1.9.2</avro.version>
-        <hadoop.version>3.3.0</hadoop.version>
+        <hadoop.version>3.3.2</hadoop.version>
     </properties>
 
     <dependencies>
