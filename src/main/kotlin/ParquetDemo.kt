@@ -22,12 +22,12 @@ Prerequisites:
 */
 
 fun main() {
-    createParquetFile("test.parquet", User::class).use { writer ->
-        writer.write(User("test", "M", 10, -1))
-        writer.write(User("test2", "F", 999, 123))
+    createParquetFile("test.parquet", UserRating::class).use { writer ->
+        writer.write(UserRating("test", "test2", 10, -1))
+        writer.write(UserRating("test2", "test", 999, 123))
     }
 
-    readParquetFile("test.parquet", User::class).use { reader ->
+    readParquetFile("test.parquet", UserRating::class).use { reader ->
         var user = reader.read()
         do {
             println(user)
